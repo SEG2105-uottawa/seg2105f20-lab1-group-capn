@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e1bf4545e0236fc89ceda5b428f656c788b0de9
 Sum Yan
 Abhay Ariyappillil
 Pierre Georges
 Nalan Kurnaz
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e1bf4545e0236fc89ceda5b428f656c788b0de9
