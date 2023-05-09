@@ -1,8 +1,4 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
-Nalan Kurnaz - 300245521
-=======
-<<<<<<< HEAD
 =======
 Sum Yan
 >>>>>>> ea6fa4c374ff3d76e25ee24ce9a66cf043f19212
