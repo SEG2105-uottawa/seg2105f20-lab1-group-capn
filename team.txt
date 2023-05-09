@@ -1,13 +1,5 @@
-<<<<<<< HEAD
 Nalan Kurnaz - 300245521
-=======
-
->>>>>>> 3e9ee0b7db83347d77ecf21c654eff0fee6439e7
 Sum Yan
 Abhay Ariyappillil
 Pierre Georges
 Nalan Kurnaz
-<<<<<<< HEAD
-=======
-
->>>>>>> 3e9ee0b7db83347d77ecf21c654eff0fee6439e7
