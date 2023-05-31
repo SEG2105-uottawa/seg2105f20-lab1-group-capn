@@ -71,6 +71,38 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult (intent,0);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_CANCELED) return;
+
+    //Getting the Avatar Image we show to our users
+        ImageView avatarImage = (ImageView) findViewById(R.id.logo);
+
+    //Figuring out the correct image
+        int imageId = data.getIntExtra("imageID", R.id.teamid00);
+        String drawableName;
+
+        if (imageId == R.id.teamid00) {
+            drawableName = "ic_logo_00";
+        } else if (imageId == R.id.teamid01) {
+            drawableName = "ic_logo_01";
+        } else if (imageId == R.id.teamid02) {
+            drawableName = "ic_logo_02";
+        } else if (imageId == R.id.teamid03) {
+            drawableName = "ic_logo_03";
+        } else if (imageId == R.id.teamid04) {
+            drawableName = "ic_logo_04";
+        } else if (imageId == R.id.teamid05) {
+            drawableName = "ic_logo_05";
+        } else {
+            drawableName = "ic_logo_00";
+        }
+
+        int	resID	=	getResources().getIdentifier(drawableName,	"drawable",  getPackageName());
+        avatarImage.setImageResource(resID);
+    }
+
 
 }
 

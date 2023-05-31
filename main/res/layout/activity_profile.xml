@@ -7,7 +7,7 @@
     tools:context=".ProfileActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
+        android:layout_width="402dp"
         android:layout_height="729dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,60 +15,81 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="141dp"
+            android:visibility="invisible" />
+
         <androidx.gridlayout.widget.GridLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:rowCount = "2"
-            app:columnCount = "3">
+            android:layout_height="400dp"
+            app:columnCount="3"
+            app:rowCount="2">
 
             <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/teamid00"
+                android:layout_width="134dp"
+                android:layout_height="200dp"
                 app:layout_column="0"
                 app:layout_row="0"
+                app:layout_columnSpan="1"
+                app:layout_rowSpan="1"
                 app:srcCompat="@drawable/ic_logo_00" />
 
             <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/teamid03"
+                android:layout_width="134dp"
+                android:layout_height="200dp"
                 app:layout_column="0"
                 app:layout_row="1"
-                app:srcCompat="@drawable/ic_logo_01" />
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_column="1"
-                app:layout_row="0"
-                app:srcCompat="@drawable/ic_logo_02"
-                android:contentDescription="Logo2" />
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_column="1"
-                app:layout_row="1"
+                app:layout_columnSpan="1"
+                app:layout_rowSpan="1"
                 app:srcCompat="@drawable/ic_logo_03" />
 
             <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_column="2"
+                android:id="@+id/teamid01"
+                android:layout_width="134dp"
+                android:layout_height="200dp"
+                android:contentDescription="Logo2"
+                app:layout_column="1"
                 app:layout_row="0"
+                app:layout_columnSpan="1"
+                app:layout_rowSpan="1"
+                app:srcCompat="@drawable/ic_logo_01" />
+
+            <ImageView
+                android:id="@+id/teamid04"
+                android:layout_width="134dp"
+                android:layout_height="200dp"
+                app:layout_column="1"
+                app:layout_row="1"
+                app:layout_columnSpan="1"
+                app:layout_rowSpan="1"
                 app:srcCompat="@drawable/ic_logo_04" />
 
             <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/teamid02"
+                android:layout_width="134dp"
+                android:layout_height="200dp"
+                app:layout_column="2"
+                app:layout_row="0"
+                app:layout_columnSpan="1"
+                app:layout_rowSpan="1"
+                app:srcCompat="@drawable/ic_logo_02" />
+
+            <ImageView
+                android:id="@+id/teamid05"
+                android:layout_width="134dp"
+                android:layout_height="200dp"
                 app:layout_column="2"
                 app:layout_row="1"
+                app:layout_columnSpan="1"
+                app:layout_rowSpan="1"
                 app:srcCompat="@drawable/ic_logo_05" />
         </androidx.gridlayout.widget.GridLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="135dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
