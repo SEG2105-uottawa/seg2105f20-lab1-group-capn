@@ -1,5 +1,6 @@
 package alirezamontazer.createbest.productcatalog_v3;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
 public class MainActivity extends AppCompatActivity {
 
     EditText editTextName;
@@ -23,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonAddProduct;
     ListView listViewProducts;
     List<Product> products;
+    DatabaseReference databaseProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +42,16 @@ public class MainActivity extends AppCompatActivity {
         editTextPrice = (EditText) findViewById(R.id.editTextPrice);
         listViewProducts = (ListView) findViewById(R.id.listViewProducts);
         buttonAddProduct = (Button) findViewById(R.id.addButton);
+        databaseProducts = FirebaseDatabase.getInstance().getReference("products");
 
         products = new ArrayList<>();
 
+
+
         clickOnAddProduct();
         onItemLongClick();
+
+
 
     }
 
@@ -113,6 +127,30 @@ public class MainActivity extends AppCompatActivity {
     private void addProduct() {
 
         Toast.makeText(this, "NOT IMPLEMENTED YET", Toast.LENGTH_LONG).show();
+    }
+
+    protected void onStart(){
+        super.onStart();
+        databaseProducts.addValueEventListener((new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+            public void onCancelled(DatabaseError)
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
+            }
+        }))
+    }
+
+    private void addProduct(){
+        String id = databaseProducts.push().getKey();
+        Product product = new Product(id,"Joeys Rib Rack", 35);
+        databaseProducts.child(id).se
+
     }
 
 

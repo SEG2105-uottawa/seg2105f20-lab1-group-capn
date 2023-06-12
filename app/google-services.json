@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "289149649413",
+    "project_id": "seglabs",
+    "storage_bucket": "seglabs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289149649413:android:fceb3dcb9a33cda1a1526c",
+        "android_client_info": {
+          "package_name": "alirezamontazer.createbest.productcatalog_v3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289149649413-u1ctt2cmv2jsged5beb75mm013e054vm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJhG4fcend5ewsJ-59-6svf0lzPZJKh1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289149649413-u1ctt2cmv2jsged5beb75mm013e054vm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
