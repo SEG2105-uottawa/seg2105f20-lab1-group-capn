@@ -1,157 +1,150 @@
-package alirezamontazer.createbest.productcatalog_v3;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.lab62;
 
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
-import java.util.List;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editTextName;
-    EditText editTextPrice;
-    Button buttonAddProduct;
-    ListView listViewProducts;
-    List<Product> products;
-    DatabaseReference databaseProducts;
+    TextView idView;
+    EditText productBox;
+    EditText skuBox;
+    Button btnAdd, btnFind, btnDelete;
+    ListView productList;
+    ProductList productListAdapter;
+    private MyDBHandler dbHandler;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        idView = (TextView) findViewById(R.id.productIDEdit);
+        productBox = (EditText) findViewById(R.id.productNameEdit);
+        skuBox = (EditText) findViewById(R.id.skuEdit);
+        btnAdd = findViewById(R.id.btnAdd);
+        btnDelete = findViewById(R.id.btnDelete);
+        btnFind = findViewById(R.id.btnFind);
+        productList = findViewById(R.id.productList);
 
-        editTextName = (EditText) findViewById(R.id.editTextName);
-        editTextPrice = (EditText) findViewById(R.id.editTextPrice);
-        listViewProducts = (ListView) findViewById(R.id.listViewProducts);
-        buttonAddProduct = (Button) findViewById(R.id.addButton);
-        databaseProducts = FirebaseDatabase.getInstance().getReference("products");
+        productListAdapter = new ProductList(this, new ArrayList<>());
+        productList.setAdapter(productListAdapter);
 
-        products = new ArrayList<>();
-
-
-
-        clickOnAddProduct();
-        onItemLongClick();
-
-
-
-    }
-
-
-    private void clickOnAddProduct() {
-        buttonAddProduct.setOnClickListener(new View.OnClickListener() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                addProduct();
+            public void onClick(View v) {
+                newProduct(v);
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeProduct(v);
+            }
+        });
+
+        btnFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locateProduct(v);
+            }
+        });
+
+
+        dbHandler = new MyDBHandler(this);
+
+        productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Product selectedProduct = (Product) productList.getItemAtPosition(position);
+                idView.setText(String.valueOf(selectedProduct.getId()));
+                productBox.setText(selectedProduct.getProductName());
+                skuBox.setText(String.valueOf(selectedProduct.getPrice()));
+                productList.setItemChecked(position, true);
             }
         });
     }
 
-    private void onItemLongClick() {
 
-        listViewProducts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Product product = products.get(i);
-                showUpdateDeleteDialog(product.getId(), product.getProductName());
-                return true;
-            }
-        });
+
+    public void newProduct (View view) {
+
+        int sku = Integer.parseInt(skuBox.getText().toString());
+
+        Product product = new Product(productBox.getText().toString(), sku);
+
+        //MyDBHandler dbHandler = new MyDBHandler(this);
+        dbHandler.addProduct(product);
+        productListAdapter.add(product);
+        Toast.makeText(this, "Product added successfully", Toast.LENGTH_SHORT).show();
+
+        productBox.setText("");
+        skuBox.setText("");
     }
 
-    private void showUpdateDeleteDialog(final String productId, String productName) {
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.update_dialog, null);
-        dialogBuilder.setView(dialogView);
+    public void locateProduct (View view) {
 
-        final EditText editTextName = (EditText) dialogView.findViewById(R.id.dialog_editTextName);
-        final EditText editTextPrice = (EditText) dialogView.findViewById(R.id.dialog_editTextPrice);
-        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateProduct);
-        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteProduct);
+        //MyDBHandler dbHandler = new MyDBHandler(this);
+        Product product = dbHandler.findProduct(productBox.getText().toString());
 
-        dialogBuilder.setTitle(productName);
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
-
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = editTextName.getText().toString().trim();
-                double price = Double.parseDouble(editTextPrice.getText().toString());
-                if (!TextUtils.isEmpty(name)) {
-                    updateProduct(productId, name, price);
-                    b.dismiss();
-                }
-            }
-        });
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteProduct(productId);
-                b.dismiss();
-            }
-        });
+        if (product != null) {
+            idView.setText(String.valueOf(product.getId()));
+            skuBox.setText(String.valueOf(product.getPrice()));
+        } else {
+            idView.setText("No Match Found");
+        }
     }
 
-    private void updateProduct(String id, String name, double price) {
 
-        Toast.makeText(getApplicationContext(), "NOT IMPLEMENTED YET", Toast.LENGTH_LONG).show();
-    }
+    public void removeProduct (View view) {
 
-    private void deleteProduct(String id) {
-
-        Toast.makeText(getApplicationContext(), "NOT IMPLEMENTED YET", Toast.LENGTH_LONG).show();
-    }
-
-    private void addProduct() {
-
-        Toast.makeText(this, "NOT IMPLEMENTED YET", Toast.LENGTH_LONG).show();
-    }
-
-    protected void onStart(){
-        super.onStart();
-        databaseProducts.addValueEventListener((new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-            public void onCancelled(DatabaseError)
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        int position = productList.getCheckedItemPosition();
+        if (position != ListView.INVALID_POSITION) {
+            Product deletedProduct = productListAdapter.getItem(position);
+            productListAdapter.remove(deletedProduct);
+        }
+        //MyDBHandler dbHandler = new MyDBHandler(this);
+        boolean result = dbHandler.deleteProduct(productBox.getText().toString());
 
 
-            }
-        }))
-    }
+        /**
+        if (result) {
+            idView.setText("");
+            productBox.setText("");
+            skuBox.setText("");
+            productList.setItemChecked(position, false);
+        }
+        else
+            idView.setText("No Match Found");
+        {
+         **/
+        if (result) {
+            Toast.makeText(this, "Product deleted successfully", Toast.LENGTH_SHORT).show();
 
-    private void addProduct(){
-        String id = databaseProducts.push().getKey();
-        Product product = new Product(id,"Joeys Rib Rack", 35);
-        databaseProducts.child(id).se
+            //productList.setVisibility(View.GONE);
+
+        }
+        else {
+            Toast.makeText(this, "No product selected for deletion", Toast.LENGTH_SHORT).show();
+        }
+
+
 
     }
+
+
 
 
 }
