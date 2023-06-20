@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         if (result) {
             Toast.makeText(this, "Product deleted successfully", Toast.LENGTH_SHORT).show();
 
-            //productList.setVisibility(View.GONE);
+            productList.setVisibility(View.GONE);
 
         }
         else {
